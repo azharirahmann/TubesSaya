@@ -34,7 +34,7 @@ public abstract class Orang {
         this.jenisKelamin=jenisKelamin;
     }
     
-    public char getJenisKelamin(){
+    public String getJenisKelamin(){
         return jenisKelamin;
     }
     
