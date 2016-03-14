@@ -11,8 +11,8 @@ package javaapplication1;
  */
 public abstract class Orang {
     private String nama;
-    private String TTL;
-    private char jenisKelamin;
+    private String alamat;
+    private String jenisKelamin;
     
     public void setNama(String nama){
         this.nama=nama;
@@ -22,15 +22,15 @@ public abstract class Orang {
         return nama;
     }
     
-    public void setTTL(String TTL){
-        this.TTL=TTL;
+    public void setAlamat(String alamat){
+        this.alamat=alamat;
     }
     
-    public String getTTL(){
-        return TTL;
+    public String getAlamat(){
+        return alamat;
     }
     
-    public void setJenisKelamin(char jenisKelamin){
+    public void setJenisKelamin(String jenisKelamin){
         this.jenisKelamin=jenisKelamin;
     }
     
@@ -38,14 +38,13 @@ public abstract class Orang {
         return jenisKelamin;
     }
     
-    public Orang(String nama, String TTL, char jenisKelamin){
+    public Orang(String nama, String alamat, String jenisKelamin){
         setNama(nama);
         setJenisKelamin(jenisKelamin);
-        setTTL(TTL);
+        setAlamat(alamat);
     }
     
     public abstract void display();
     
-    public abstract void upload();
     
 }

@@ -12,24 +12,15 @@ package javaapplication1;
 public class Dosen extends Orang {
     private Kelas[] daftarKelas = new Kelas[maxKelas];
     private int maxKelas;
-    private String nip;
     private String kodeDosen;
     
     
-    public void upload(){
-        
-    }
-    
     public void display(){
-        
-    }
-
-    public String getNip() {
-        return nip;
-    }
-
-    public void setNip(String nip) {
-        this.nip = nip;
+        System.out.println("DOSEN");
+        System.out.println("Nama : "+super.getNama());
+        System.out.println("Kode dosen : "+getKodeDosen());
+        System.out.println("Alamat : "+super.getAlamat());
+        System.out.println("Jenis Kelamin : "+super.getJenisKelamin());
     }
 
     public String getKodeDosen() {
@@ -40,9 +31,8 @@ public class Dosen extends Orang {
         this.kodeDosen = kodeDosen;
     }
     
-    public Dosen(String nama, String TTL, char jenisKelamin, String nip, String kodeDosen){
+    public Dosen(String nama, String TTL, String jenisKelamin, String kodeDosen){
         super(nama,TTL,jenisKelamin);
         setKodeDosen(kodeDosen);
-        setNip(nip);
     }
 }
