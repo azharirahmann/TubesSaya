@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 public class Dosen extends Orang {
     private ArrayList<Kelas> daftarKelas = new ArrayList();
-    private int numKelas=0;
     private String kodeDosen;
     
     
@@ -44,12 +43,10 @@ public class Dosen extends Orang {
     }
     
     public Kelas getKelas(int indeks){
-        return daftarKelas[indeks];
+        return daftarKelas.get(indeks);
     }
     
     public void removeKelas(int indeks){
-        Kelas k = null;
-        
-        
+        daftarKelas.remove(indeks);
     }
 }
