@@ -30,8 +30,7 @@ public class Kelas {
     }
     
     public void createTugas(String judul){
-        Tugas t=new Tugas(judul);
-        tugas.add(t);
+        tugas.add(new Tugas(judul));
     }
     
     public void removeMahasiswa(int index){
@@ -41,9 +40,16 @@ public class Kelas {
     public Mahasiswa getAnggota(int index){
         return anggota.get(index);
     }
-    
+   
     public Mahasiswa getAnggota(String nim){
-        return anggota.
+        int index=-1;
+        for (int i=0;i<anggota.size();i++){
+            if (anggota.get(i).getNim()==nim){
+                index=i;
+                break;
+            }
+        }
+        return anggota.get(index);
     }
     
     public Tugas getTugas(int index){
