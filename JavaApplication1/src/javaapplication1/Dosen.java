@@ -5,13 +5,15 @@
  */
 package javaapplication1;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author user
  */
 public class Dosen extends Orang {
-    private Kelas[] daftarKelas = new Kelas[maxKelas];
-    private int maxKelas;
+    private ArrayList<Kelas> daftarKelas = new ArrayList();
+    private int numKelas=0;
     private String kodeDosen;
     
     
@@ -34,5 +36,20 @@ public class Dosen extends Orang {
     public Dosen(String nama, String TTL, String jenisKelamin, String kodeDosen){
         super(nama,TTL,jenisKelamin);
         setKodeDosen(kodeDosen);
+    }
+    
+    public void createKelas(String namaKelas){
+        Kelas k1 = new Kelas(namaKelas);
+        daftarKelas.add(k1);
+    }
+    
+    public Kelas getKelas(int indeks){
+        return daftarKelas[indeks];
+    }
+    
+    public void removeKelas(int indeks){
+        Kelas k = null;
+        
+        
     }
 }
