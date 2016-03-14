@@ -43,17 +43,7 @@ public class Kelas {
     }
     
     public Mahasiswa getAnggota(String nim){
-        Mahasiswa m=null;
-        for (int i=0;i<anggota.length;i++){
-            if (anggota[i].getNim().equals(nim)){
-                m=anggota[i];
-                break;
-            }
-            else{
-                m=null;
-            }
-        }
-        return m;
+        return anggota.
     }
     
     public Tugas getTugas(int index){
