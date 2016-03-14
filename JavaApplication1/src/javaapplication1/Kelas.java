@@ -5,18 +5,17 @@
  */
 package javaapplication1;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Luthfi
  */
 public class Kelas {
     private MataKuliah mataKuliah;
-    private Mahasiswa[] anggota = new Mahasiswa[maxAnggota];
-    private Tugas[] tugas = new Tugas[5];
+    private ArrayList<Tugas> tugas = new ArrayList();
     private String namaKelas;
-    private int numOfAnggota;
-    private int numOfTugas;
-    private int maxAnggota=40;
+    private ArrayList<Mahasiswa> anggota = new ArrayList();
     
     public Kelas (String namaKelas){
         setNamaKelas(namaKelas);
@@ -26,38 +25,46 @@ public class Kelas {
         this.namaKelas=namaKelas;
     }
     
-    public void setMataKuliah(mataKuliah m){
-        
-    }
-    
     public void addMahasiswa(Mahasiswa m){
-        if (numOfAnggota<maxAnggota){
-            anggota[numOfAnggota]=m;
-            numOfAnggota++;
-        }
-        else{
-            System.out.println("Kelas sudah penuh");
-        }
+        anggota.add(m);
     }
     
-    public void addTugas(String tugas){
-        if (numOfTugas<5){
-            tugas[numOfTugas]= new tugas(judul,waktuPengerjaan,deskripsi);
-            numOfTugas++;
-        }
+    public void createTugas(String judul){
+        Tugas t=new Tugas(judul);
+        tugas.add(t);
     }
     
-    public void removeMahasiswa(Mahasiswa m){
-        for (int i=0;i<maxAnggota;i++){
-            if (m.getNama()==anggota[i].getNama()){
-                for (int j=i+1;i<maxAnggota;j++){
-                    anggota[i]=anggota[j];
-                }
+    public void removeMahasiswa(int index){
+        anggota.remove(this);
+    }
+    
+    public Mahasiswa getAnggota(int index){
+        return anggota.get(index);
+    }
+    
+    public Mahasiswa getAnggota(String nim){
+        Mahasiswa m=null;
+        for (int i=0;i<anggota.length;i++){
+            if (anggota[i].getNim().equals(nim)){
+                m=anggota[i];
+                break;
+            }
+            else{
+                m=null;
             }
         }
+        return m;
     }
     
-    public void solusiTugas(String tugas){
-        
+    public Tugas getTugas(int index){
+        return tugas.get(index);
+    }
+    
+    public void setMataKuliah(MataKuliah m){
+        this.mataKuliah=m;
+    }
+    
+    public MataKuliah getMataKuliah(){
+        return mataKuliah;
     }
 }
