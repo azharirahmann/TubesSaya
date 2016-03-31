@@ -43,8 +43,4 @@ public abstract class Orang {
         setJenisKelamin(jenisKelamin);
         setAlamat(alamat);
     }
-    
-    public abstract void display();
-    
-    
 }

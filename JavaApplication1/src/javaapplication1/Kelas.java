@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package javaapplication1;
 
 import java.util.ArrayList;
@@ -24,18 +19,61 @@ public class Kelas {
     public void setNamaKelas(String namaKelas){
         this.namaKelas=namaKelas;
     }
+
+    public String getNamaKelas() {
+        return namaKelas;
+    }
     
-    public void addMahasiswa(Mahasiswa m){
-        anggota.add(m);
+    
+    public boolean addMahasiswa(Mahasiswa m){
+        if ((m instanceof Mahasiswa) && m != null)
+        {
+            anggota.add(m);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     public void createTugas(String judul){
         tugas.add(new Tugas(judul));
     }
     
-    public void removeMahasiswa(int index){
-        anggota.remove(this);
+    public boolean removeTugas(Tugas t){
+        if ((t instanceof Tugas) && t != null)
+        {
+            tugas.remove(t);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
+    
+    public void removeMahasiswa(int index){
+        anggota.remove(index);
+    }
+    
+    public boolean removeMahasiswa(Mahasiswa m){
+        if ((m instanceof Mahasiswa) && m != null)
+        {
+            anggota.remove(m);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Kelas{" + "namaKelas=" + namaKelas + '}';
+    }
+    
     
     public Mahasiswa getAnggota(int index){
         return anggota.get(index);
