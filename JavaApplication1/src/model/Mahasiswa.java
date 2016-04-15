@@ -1,4 +1,4 @@
-package javaapplication1;
+package model;
 
 /**
  *
@@ -17,7 +17,11 @@ public class Mahasiswa extends Orang{
 
     @Override
     public String toString() {
-        return "Mahasiswa{" + "nim=" + nim + '}';
+        return "\nNama : " + super.getNama()
+                + "\nAlamat : " + super.getAlamat()
+                + "\nJenis Kelamin : " + super.getJenisKelamin()
+                + "\nNIM : " + getNim()
+                + "\n";
     }
     
     

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication1;
+package model;
 
 /**
  *
  * @author Luthfi
  */
-class MataKuliah {
+public class MataKuliah {
     private String namaMK;
     private String kodeMK;
     private int sks;
@@ -30,5 +30,12 @@ class MataKuliah {
     
     public int getSks(){
         return this.sks;
+    }
+    
+    public String toString(){
+        return "\nNama Mata Kuliah : " + getNamaMK()
+                + "\nKode Mata Kuliah : " + getKodeMK()
+                + "\nSKS : " + getSks()
+                + "\n";
     }
 }

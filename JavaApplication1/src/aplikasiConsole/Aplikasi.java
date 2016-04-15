@@ -1,7 +1,14 @@
-package javaapplication1;
+package aplikasiConsole;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import model.Dosen;
+import model.Kelas;
+import model.Mahasiswa;
+import model.MataKuliah;
+import java.util.stream.Collectors;
+
 
 /**
  *
@@ -19,33 +26,13 @@ public class Aplikasi {
     private MataKuliah mk = null;
     private Kelas k = null;
 
+    
     public void addDosen(String nama, String alamat, String jenisKelamin, String kodeDosen) {
         daftarDosen.add(new Dosen(nama, alamat, jenisKelamin, kodeDosen));
     }
 
-    public void addMahasiswa(String nama, String alamat, String jenisKelamin, String nim) {
-        daftarMahasiswa.add(new Mahasiswa(nama, alamat, jenisKelamin, nim));
-    }
-
-    public void addMataKuliah(String namaMK, String kodeMK, int sks) {
-        daftarMataKuliah.add(new MataKuliah(namaMK, kodeMK, sks));
-    }
-
-    public Mahasiswa searchMahasiswa(String nim) {
-        for (int i = 0; i < daftarMahasiswa.size(); i++) {
-            if (daftarMahasiswa.get(i).getNim().equals(nim)) {
-                m = daftarMahasiswa.get(i);
-                break;
-            }
-        }
-        return m;
-    }
-
-    public void removeMahasiswa(String nim) {
-        daftarMahasiswa.remove(searchMahasiswa(nim));
-    }
-
     public Dosen searchDosen(String kodeDosen) {
+        d = null;
         for (int i = 0; i < daftarDosen.size(); i++) {
             if (daftarDosen.get(i).getKodeDosen().equals(kodeDosen)) {
                 d = daftarDosen.get(i);
@@ -58,8 +45,67 @@ public class Aplikasi {
     public void removeDosen(String kodeDosen) {
         daftarDosen.remove(searchDosen(kodeDosen));
     }
+    
+    public void viewDosen(){
+        if (daftarDosen.isEmpty()) {
+            System.out.println("Daftar Dosen Kosong");
+        } else {
+            for (int i = 0; i < daftarDosen.size(); i++) {
+                System.out.println(daftarDosen.get(i).toString());
+            }
+        }
+        System.out.println("-----------------------------------------------");
+    }
+
+    public ArrayList<Dosen> getDaftarDosen() {
+        return daftarDosen;
+    }
+
+    public ArrayList<Mahasiswa> getDaftarMahasiswa() {
+        return daftarMahasiswa;
+    }
+
+    public ArrayList<MataKuliah> getDaftarMataKuliah() {
+        return daftarMataKuliah;
+    }
+    
+    
+    public void addMahasiswa(String nama, String alamat, String jenisKelamin, String nim) {
+        daftarMahasiswa.add(new Mahasiswa(nama, alamat, jenisKelamin, nim));
+    }
+    
+    public Mahasiswa searchMahasiswa(String nim) {
+        m = null;
+        for (int i = 0; i < daftarMahasiswa.size(); i++) {
+            if (daftarMahasiswa.get(i).getNim().equals(nim)) {
+                m = daftarMahasiswa.get(i);
+                break;
+            }
+        }
+        return m;
+    }
+
+    public void removeMahasiswa(String nim) {
+        daftarMahasiswa.remove(searchMahasiswa(nim));
+    }
+    
+    public void viewMahasiswa(){
+        if (daftarMahasiswa.isEmpty()) {
+            System.out.println("Daftar Mahasiswa Kosong");
+        } else {
+            for (int i = 0; i < daftarMahasiswa.size(); i++) {
+                System.out.println(daftarMahasiswa.get(i).toString());
+            }
+        }
+        System.out.println("-----------------------------------------------");
+    }
+
+    public void addMataKuliah(String namaMK, String kodeMK, int sks) {
+        daftarMataKuliah.add(new MataKuliah(namaMK, kodeMK, sks));
+    }
 
     public MataKuliah searchMataKuliah(String kodeMK) {
+        mk = null;
         for (int i = 0; i < daftarMataKuliah.size(); i++) {
             if (daftarMataKuliah.get(i).getKodeMK().equals(kodeMK)) {
                 mk = daftarMataKuliah.get(i);
@@ -72,8 +118,20 @@ public class Aplikasi {
     public void removeMataKuliah(String kodeMK) {
         daftarMataKuliah.remove(searchMataKuliah(kodeMK));
     }
+    
+    public void viewMataKuliah(){
+        if (daftarMataKuliah.isEmpty()) {
+            System.out.println("Daftar Dosen Kosong");
+        } else {
+            for (int i = 0; i < daftarMataKuliah.size(); i++) {
+                System.out.println(daftarMataKuliah.get(i).toString());
+            }
+        }
+        System.out.println("-----------------------------------------------");
+    }
 
     public Kelas searchKelas(Dosen d, String namaKelas) {
+        k = null;
         for (int i = 0; i < d.getJumlahKelas(); i++) {
             if (d.getKelas(i).getNamaKelas().equals(namaKelas)) {
                 k = d.getKelas(i);
@@ -82,7 +140,35 @@ public class Aplikasi {
         }
         return k;
     }
-
+    
+    public void viewKelas(Dosen d){
+        if (d.isKelasEmpty()==true){
+            System.out.println("Daftar Kelas Kosong");
+            System.out.println("-----------------------------------------------");
+        }
+        else{
+            for (int i = 0; i < d.getJumlahKelas(); i++) {
+                System.out.println((i + 1) + " Kelas: " + d.getKelas(i).getNamaKelas());
+                if (d.getKelas(i).isMKEmpty() != true){
+                    System.out.println("Mata Kuliah : "+ d.getKelas(i).getMataKuliah().getNamaMK());
+                }
+                else{
+                    System.out.println("Set Mata Kuliah Terlebih Dahulu");
+                }
+                
+                if (d.getKelas(i).isAnggotaEmpty() != true) {
+                    System.out.println("Anggota : ");
+                    for (int j = 0; j < d.getKelas(i).getJumlahAnggota(); j++) {
+                        System.out.println("Nama : "+ d.getKelas(i).getAnggota(j).getNama());
+                    }
+                } else {
+                    System.out.println("Daftar Anggota Masih Kosong");
+                }
+            }
+            System.out.println("-----------------------------------------------");
+        }
+    }
+    
     public void menuDosen() {
         int p;
         do {
@@ -154,7 +240,7 @@ public class Aplikasi {
                                             switch (p2) {
                                                 case 1:
                                                     if (daftarMataKuliah.isEmpty()) {
-                                                        System.out.println("Mata Kuliah tidak ditemukan");
+                                                        System.out.println("Daftar Mata Kuliah Masih Kosong");
                                                         System.out.println("-----------------------------------------------");
                                                         break;
                                                     } else {
@@ -168,7 +254,13 @@ public class Aplikasi {
                                                     System.out.print("Masukkan kode mata kuliah : ");
                                                     String x = s.next();
                                                     System.out.println("-----------------------------------------------");
-                                                    searchDosen(cariKodeDosen).getKelas(pk).setMataKuliah(searchMataKuliah(x));
+                                                    if (searchMataKuliah(x)==null){
+                                                        System.out.println("Kode Mata Kuliah Tidak ada");
+                                                    }
+                                                    else{
+                                                        searchDosen(cariKodeDosen).getKelas(pk).setMataKuliah(searchMataKuliah(x));
+                                                        System.out.println("Berhasil Ditambah");
+                                                    }
                                                     break;
                                                 case 2:
                                                     System.out.print("Judul: ");
@@ -178,7 +270,7 @@ public class Aplikasi {
                                                     break;
                                                 case 3:
                                                     if (daftarMahasiswa.isEmpty()) {
-                                                        System.out.println("Mahasiswa tidak ditemukan");
+                                                        System.out.println("Daftar Mahasiswa Masih Kosong");
                                                         System.out.println("-----------------------------------------------");
                                                         break;
                                                     } else {
@@ -194,7 +286,7 @@ public class Aplikasi {
                                                     System.out.println("-----------------------------------------------");
                                                     if ((m = searchMahasiswa(nim)) != null) {
                                                         if (searchDosen(cariKodeDosen).getKelas(pk).addMahasiswa(m)) {
-                                                            System.out.println("AddMahasiswa berhasil");
+                                                            System.out.println("Add Mahasiswa berhasil");
                                                         }
                                                     } else {
                                                         System.out.println("Mahasiswa tidak ditemukan");
@@ -233,11 +325,13 @@ public class Aplikasi {
                                                     break;
                                                 case 5:
                                                     d = searchDosen(cariKodeDosen);
-                                                    for (int i = 0; i < d.getJumlahKelas(); i++) {
-                                                        if (d.getKelas(pk).getTugas(i) != null) {
-                                                            System.out.println((i + 1) + " Judul: " + d.getKelas(pk).getTugas(i).getJudul());
-                                                        } else {
-                                                            System.out.println("Tugas tidak ditemukan");
+                                                    if(d.getKelas(pk).getJumlahTugas() == 0){
+                                                        System.out.println("Tidak ada tugas ^^");
+                                                    }
+                                                    else{
+                                                        for (int i = 0; i < d.getKelas(pk).getJumlahTugas(); i++) {    
+                                                            System.out.println((i + 1) + " Judul : " + d.getKelas(pk).getTugas(i).getJudul());
+                                                            System.out.println("");
                                                         }
                                                     }
                                                     System.out.println("-----------------------------------------------");
@@ -280,20 +374,8 @@ public class Aplikasi {
                                     }
                                     break;
                                 case 4:
-                                    for (int i = 0; i < searchDosen(cariKodeDosen).getJumlahKelas(); i++) {
-                                        if (searchDosen(cariKodeDosen).getKelas(i) == null) {
-                                            System.out.println("Kelas tidak ditemukan");
-                                        } else {
-                                            System.out.println((i + 1) + " Kelas: " + searchDosen(cariKodeDosen).getKelas(i).getNamaKelas());
-                                            if (searchDosen(cariKodeDosen) != null) {
-                                                System.out.println("  Anggota: " + searchDosen(cariKodeDosen).getKelas(i).getAnggota(i).getNama());
-                                            } else {
-                                                System.out.println("Anggota tidak ditemukan");
-                                            }
-                                        }
-                                        System.out.println("-----------------------------------------------");
-                                        break;
-                                    }
+                                    viewKelas(searchDosen(cariKodeDosen));
+                                    break;
                                 case 5:
                                     break;
                                 default:
@@ -318,18 +400,7 @@ public class Aplikasi {
                     }
                     break;
                 case 4:
-                    if (daftarDosen.isEmpty()) {
-                        System.out.println("Dosen tidak ditemukan");
-                    } else {
-                        for (int i = 0; i < daftarDosen.size(); i++) {
-                            System.out.println("Nama: " + daftarDosen.get(i).getNama());
-                            System.out.println("Alamat: " + daftarDosen.get(i).getAlamat());
-                            System.out.println("Jenis Kelamin: " + daftarDosen.get(i).getJenisKelamin());
-                            System.out.println("Kode Dosen: " + daftarDosen.get(i).getKodeDosen());
-                            System.out.println();
-                        }
-                    }
-                    System.out.println("-----------------------------------------------");
+                    viewDosen();
                     break;
                 case 5:
                     mainMenu();
@@ -449,18 +520,7 @@ public class Aplikasi {
                     System.out.println("-----------------------------------------------");
                     break;
                 case 4:
-                    if (daftarMahasiswa.isEmpty()) {
-                        System.out.println("Mahasiswa tidak ditemukan");
-                    } else {
-                        for (int i = 0; i < daftarMahasiswa.size(); i++) {
-                            System.out.println("Nama: " + daftarMahasiswa.get(i).getNama());
-                            System.out.println("Alamat: " + daftarMahasiswa.get(i).getAlamat());
-                            System.out.println("Jenis Kelamin: " + daftarMahasiswa.get(i).getJenisKelamin());
-                            System.out.println("NIM: " + daftarMahasiswa.get(i).getNim());
-                            System.out.println();
-                        }
-                    }
-                    System.out.println("-----------------------------------------------");
+                    viewMahasiswa();
                     break;
                 case 5:
                     mainMenu();
@@ -523,17 +583,7 @@ public class Aplikasi {
                     }
                     break;
                 case 4:
-                    if (daftarMataKuliah.isEmpty()) {
-                        System.out.println("Mata Kuliah tidak di temukan");
-                    } else {
-                        for (int i = 0; i < daftarMataKuliah.size(); i++) {
-                            System.out.println("Nama Mata Kuliah: " + daftarMataKuliah.get(i).getNamaMK());
-                            System.out.println("Kode Mata Kuliah: " + daftarMataKuliah.get(i).getKodeMK());
-                            System.out.println("SKS: " + daftarMataKuliah.get(i).getSks());
-                            System.out.println();
-                        }
-                    }
-                    System.out.println("-----------------------------------------------");
+                    viewMataKuliah();
                     break;
                 case 5:
                     mainMenu();

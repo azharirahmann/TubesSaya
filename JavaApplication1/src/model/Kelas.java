@@ -1,4 +1,4 @@
-package javaapplication1;
+package model;
 
 import java.util.ArrayList;
 
@@ -8,9 +8,9 @@ import java.util.ArrayList;
  */
 public class Kelas {
     private MataKuliah mataKuliah;
-    private ArrayList<Tugas> tugas = new ArrayList();
+    private ArrayList<Tugas> tugas = new ArrayList<>();
     private String namaKelas;
-    private ArrayList<Mahasiswa> anggota = new ArrayList();
+    private ArrayList<Mahasiswa> anggota = new ArrayList<>();
     
     public Kelas (String namaKelas){
         setNamaKelas(namaKelas);
@@ -74,24 +74,39 @@ public class Kelas {
         return "Kelas{" + "namaKelas=" + namaKelas + '}';
     }
     
+    public int getJumlahAnggota(){
+        return anggota.size();
+    }
     
     public Mahasiswa getAnggota(int index){
         return anggota.get(index);
     }
-   
+    
     public Mahasiswa getAnggota(String nim){
-        int index=-1;
+        Mahasiswa m = null;
         for (int i=0;i<anggota.size();i++){
-            if (anggota.get(i).getNim()==nim){
-                index=i;
+            if (anggota.get(i).getNim().equals(nim)){
+                m=anggota.get(i);
                 break;
             }
         }
-        return anggota.get(index);
+        return m;
+    }
+    
+    public boolean isAnggotaEmpty(){
+        boolean t=false;
+        if (anggota.isEmpty()){
+            t=true;
+        }
+        return t;
     }
     
     public Tugas getTugas(int index){
         return tugas.get(index);
+    }
+    
+    public int getJumlahTugas(){
+        return tugas.size();
     }
     
     public void setMataKuliah(MataKuliah m){
@@ -100,5 +115,13 @@ public class Kelas {
     
     public MataKuliah getMataKuliah(){
         return mataKuliah;
+    }
+    
+    public boolean isMKEmpty(){
+        boolean t = false;
+        if(mataKuliah==null){
+            t=true;
+        }
+        return t;
     }
 }
