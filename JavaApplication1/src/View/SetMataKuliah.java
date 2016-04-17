@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import javax.swing.JTable;
 
 /**
  *
@@ -34,8 +35,8 @@ public class SetMataKuliah extends javax.swing.JPanel {
         tfKode = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txMatkul = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         jLabel1.setText("Set Mata Kuliah");
 
@@ -45,9 +46,15 @@ public class SetMataKuliah extends javax.swing.JPanel {
 
         btnBack.setText("Back");
 
-        txMatkul.setColumns(20);
-        txMatkul.setRows(5);
-        jScrollPane1.setViewportView(txMatkul);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -55,19 +62,23 @@ public class SetMataKuliah extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSave))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnBack)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSave))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addGap(18, 18, 18)
-                            .addComponent(tfKode, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel1))
-                    .addComponent(jScrollPane1))
-                .addContainerGap(67, Short.MAX_VALUE))
+                            .addComponent(tfKode, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(25, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(44, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,9 +93,12 @@ public class SetMataKuliah extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnBack))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                .addGap(31, 31, 31))
+                .addContainerGap(166, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(146, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(13, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -94,9 +108,9 @@ public class SetMataKuliah extends javax.swing.JPanel {
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField tfKode;
-    private javax.swing.JTextArea txMatkul;
     // End of variables declaration//GEN-END:variables
 
     public Object getBtnBack(){
@@ -110,9 +124,9 @@ public class SetMataKuliah extends javax.swing.JPanel {
     public String getKodeMatkul(){
         return tfKode.getText();
     }
-    
-    public void setDetailMatkul(String s){
-        txMatkul.setText(s);
+
+    public JTable getjTable1() {
+        return jTable1;
     }
     
     public void addListener(ActionListener e){

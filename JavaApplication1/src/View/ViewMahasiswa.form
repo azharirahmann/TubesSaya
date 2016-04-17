@@ -16,16 +16,22 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="btnBack" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" alignment="0" min="-2" pref="326" max="-2" attributes="0"/>
-                  </Group>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="313" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnBack" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="366" max="-2" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="44" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -34,11 +40,16 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="176" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace pref="211" max="32767" attributes="0"/>
               <Component id="btnBack" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="50" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="192" max="-2" attributes="0"/>
+                  <EmptySpace pref="58" max="32767" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -49,25 +60,32 @@
         <Property name="text" type="java.lang.String" value="Back"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="View Mahasiswa"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="txMhs">
+        <Component class="javax.swing.JTable" name="jTable1">
           <Properties>
-            <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="0" rowCount="0"/>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0"/>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="View Mahasiswa"/>
-      </Properties>
-    </Component>
   </SubComponents>
 </Form>

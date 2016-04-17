@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import javax.swing.JTable;
 
 /**
  *
@@ -31,17 +32,13 @@ public class SearchDosen extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         tfKode = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txDosen = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tDosen = new javax.swing.JTable();
 
         jLabel2.setText("Kode Dosen");
-
-        txDosen.setColumns(20);
-        txDosen.setRows(5);
-        jScrollPane1.setViewportView(txDosen);
 
         jLabel1.setText("Search Dosen");
 
@@ -54,42 +51,50 @@ public class SearchDosen extends javax.swing.JPanel {
             }
         });
 
+        tDosen.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(tDosen);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnBack, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSearch))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(tfKode, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSearch))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfKode, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tfKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch)
                     .addComponent(btnBack))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -104,9 +109,9 @@ public class SearchDosen extends javax.swing.JPanel {
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tDosen;
     private javax.swing.JTextField tfKode;
-    private javax.swing.JTextArea txDosen;
     // End of variables declaration//GEN-END:variables
 
     public Object getBtnBack(){
@@ -121,14 +126,15 @@ public class SearchDosen extends javax.swing.JPanel {
         return tfKode.getText();
     }
     
-    public void setDetailDosen(String s){
-        txDosen.setText(s);
-    }
-    
     public void reset(){
         tfKode.setText("");
-        txDosen.setText("");
     }
+
+    public JTable gettDosen() {
+        return tDosen;
+    }
+    
+    
     
     public void addListener(ActionListener e){
         btnBack.addActionListener(e);

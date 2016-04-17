@@ -110,6 +110,10 @@ public class CreateKelas extends javax.swing.JPanel {
         return tfNamaKelas.getText();
     }
     
+    public void reset(){
+        tfNamaKelas.setText("");
+    }
+    
     public void addListener(ActionListener e){
         btnBack.addActionListener(e);
         btnSave.addActionListener(e);

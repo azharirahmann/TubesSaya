@@ -167,6 +167,16 @@ public class AddMataKuliah extends javax.swing.JPanel {
         return tfNama.getText();
     }
     
+    public String getTfKode(){
+        return tfKode.getText();
+    }
+    
+    public void reset(){
+        tfNama.setText("");
+        tfKode.setText("");
+        cbSks.setSelectedIndex(0);
+    }
+    
     public int getSks(){
         return cbSks.getSelectedIndex() + 1;
     }

@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import javax.swing.JTable;
 
 /**
  *
@@ -30,41 +31,55 @@ public class ViewMahasiswa extends javax.swing.JPanel {
     private void initComponents() {
 
         btnBack = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txMhs = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         btnBack.setText("Back");
 
-        txMhs.setColumns(20);
-        txMhs.setRows(5);
-        jScrollPane1.setViewportView(txMhs);
-
         jLabel1.setText("View Mahasiswa");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnBack)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(313, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addGap(19, 19, 19))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(12, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(22, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
                 .addComponent(btnBack)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(50, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(58, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -72,16 +87,16 @@ public class ViewMahasiswa extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txMhs;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
     
     public Object getBtnBack(){
         return btnBack;
     }
-    
-    public void setDetailMhs(String s){
-        txMhs.setText(s);
+
+    public JTable getjTable1() {
+        return jTable1;
     }
     
     public void addListener(ActionListener e){

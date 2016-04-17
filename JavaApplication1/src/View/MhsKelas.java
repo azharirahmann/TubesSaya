@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import javax.swing.JTable;
 
 /**
  *
@@ -32,27 +33,33 @@ public class MhsKelas extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         tfMasuk = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txKelas = new javax.swing.JTextArea();
+        btnEnter = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         btnBack.setText("Back");
 
         jLabel2.setText("Nama Kelas");
 
-        btnSearch.setText("Enter");
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+        btnEnter.setText("Enter");
+        btnEnter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
+                btnEnterActionPerformed(evt);
             }
         });
 
-        txKelas.setColumns(20);
-        txKelas.setRows(5);
-        jScrollPane1.setViewportView(txKelas);
-
         jLabel1.setText("Masuk Kelas");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -64,14 +71,18 @@ public class MhsKelas extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSearch))
+                        .addComponent(btnEnter))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(tfMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(63, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(33, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(70, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,47 +95,54 @@ public class MhsKelas extends javax.swing.JPanel {
                     .addComponent(tfMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSearch)
+                    .addComponent(btnEnter)
                     .addComponent(btnBack))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(162, 162, 162))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(155, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(31, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+    private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSearchActionPerformed
+    }//GEN-LAST:event_btnEnterActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnEnter;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField tfMasuk;
-    private javax.swing.JTextArea txKelas;
     // End of variables declaration//GEN-END:variables
 
     public Object getBtnBack(){
         return btnBack;
     }
     
-    public Object getBtnSearch(){
-        return btnSearch;
+    public Object getBtnEnter(){
+        return btnEnter;
     }
     
     public String getTfMasuk(){
         return tfMasuk.getText();
     }
     
-    public void setDetailKelas(String s){
-        txKelas.setText(s);
+    public void reset(){
+        tfMasuk.setText("");
+    }
+
+    public JTable getjTable1() {
+        return jTable1;
     }
     
     public void addListener(ActionListener e){
         btnBack.addActionListener(e);
-        btnSearch.addActionListener(e);
+        btnEnter.addActionListener(e);
     }
 }

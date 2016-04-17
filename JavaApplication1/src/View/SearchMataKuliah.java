@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -122,6 +123,17 @@ public class SearchMataKuliah extends javax.swing.JPanel {
     public void setDetailMatkul(String s){
         txMatkul.setText(s);
     }
+    
+    public void reset(){
+        txMatkul.setText("");
+        tfKode.setText("");
+    }
+
+    public JTextArea getTxMatkul() {
+        return txMatkul;
+    }
+    
+    
     
     public void addListener(ActionListener e){
         btnBack.addActionListener(e);

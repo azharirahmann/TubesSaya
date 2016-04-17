@@ -30,16 +30,13 @@ public class MainMenu extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         btnDosen = new javax.swing.JButton();
         btnMahasiswa = new javax.swing.JButton();
         btnMataKuliah = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel3.setFont(new java.awt.Font("Hobo Std", 0, 36)); // NOI18N
-        jLabel3.setText("E-LEARNING");
-
-        jLabel4.setFont(new java.awt.Font("Hobo Std", 0, 36)); // NOI18N
-        jLabel4.setText("APPLICATION");
+        jLabel3.setText("APPLICATION");
 
         btnDosen.setText("DOSEN");
 
@@ -52,41 +49,44 @@ public class MainMenu extends javax.swing.JPanel {
 
         btnMataKuliah.setText("MATA KULIAH");
 
+        jLabel4.setFont(new java.awt.Font("Hobo Std", 0, 36)); // NOI18N
+        jLabel4.setText("E-LEARNING");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(76, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(101, 101, 101))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(87, 87, 87))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnMataKuliah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMahasiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDosen, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnMataKuliah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMahasiswa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDosen, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(13, 13, 13))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(34, 34, 34)
                 .addComponent(btnDosen)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnMahasiswa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnMataKuliah)
-                .addGap(22, 22, 22))
+                .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
 
