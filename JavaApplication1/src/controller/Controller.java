@@ -77,9 +77,10 @@ public class Controller extends MouseAdapter implements ActionListener{
     private String[] cDosen = { "Kode Dosen","Nama", "Alamat", "Jenis Kelamin"};
     private String[] cKelas = { "Nama Kelas","Mata Kuliah", "Anggota"};
     private String[] cMhs = { "NIM","Nama","Alamat","Jenis Kelamin"};
-    private String[] cMasukKelas = { "Kode Dosen","Nama Mata Kuliah", "Mata Kuliah", "SKS"};
+    private String[] cMasukKelas = { "Nama Kelas","Kode Dosen", "Mata Kuliah", "SKS"};
     private String[] cMatkul = { "Kode Mata Kuliah", "Nama Mata Kuliah", "SKS"};
     private String[] cAddMhs = { "NIM", "Nama"};
+    private String[] cTugas = { "Dosen","Kelas","Mata Kuliah","Tugas"};
     
     public Controller(Aplikasi model){
         this.model = model;
@@ -250,9 +251,9 @@ public class Controller extends MouseAdapter implements ActionListener{
             if (d.isKelasEmpty()==false){
                 for (int i = 0; i < d.getJumlahKelas(); i++) {
                     if (d.getKelas(i).isMKEmpty()==false){
-                        String[] row = {d.getKodeDosen(), 
-                            d.getKelas(i).getMataKuliah().getNamaMK(), 
-                            d.getKelas(i).getMataKuliah().getKodeMK(),
+                        String[] row = {d.getKelas(i).getNamaKelas(), 
+                            d.getKodeDosen(), 
+                            d.getKelas(i).getMataKuliah().getNamaMK(),
                             Integer.toString(d.getKelas(i).getMataKuliah().getSks())};
                         tm.addRow(row);
                     }
@@ -671,26 +672,33 @@ public class Controller extends MouseAdapter implements ActionListener{
             else if (source.equals(mhss.getBtnView())){
                 nowViewing = "222";
                 view.getCardLayout().show(mainPanel,nowViewing);
+                String tugas = "";
+                String a = "";
+                if (model.getDaftarDosen()!=null){
+                    for (int i = 0; i < model.getDaftarDosen().size(); i++) {
+                        if (model.getDaftarDosen().get(i).isKelasEmpty() == false){
+                            for (int j = 0; j < model.getDaftarDosen().get(i).getJumlahKelas(); j++) {
+                                if (model.getDaftarDosen().get(i).getKelas(j).getAnggota(cariMhs) != null
+                                        && model.getDaftarDosen().get(i).getKelas(j).getJumlahTugas() >= 0){
+                                    for (int k = 0; k < model.getDaftarDosen().get(i).getKelas(j).getJumlahTugas(); k++) {
+                                        a = (k+1) + ". \n" + "Dosen : " + model.getDaftarDosen().get(i).getNama() + "\n " +
+                                                "Kelas : " + model.getDaftarDosen().get(i).getKelas(j).getNamaKelas() + "\n " +
+                                                "Mata Kuliah : " + model.getDaftarDosen().get(i).getKelas(j).getMataKuliah().getNamaMK() + "\n " +
+                                                "Tugas : " + model.getDaftarDosen().get(i).getKelas(j).getTugas(k).getJudul() + "\n";
+                                        tugas = tugas + a;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                mhsv.setDetailTugas(tugas);
+                
             }
             else if (source.equals(mhss.getBtnBack())){
                 nowViewing = "2";
                 view.getCardLayout().show(mainPanel,nowViewing);
                 cariMhs = null;
-            }
-        }
-        else if (nowViewing.equals("221")){
-            if (source.equals(mhsk.getBtnBack())){
-                nowViewing = "220";
-                view.getCardLayout().show(mainPanel,nowViewing);
-            }
-            else if (source.equals(mhsk.getBtnEnter())){
-                
-            }
-        }
-        else if (nowViewing.equals("222")){
-            if (source.equals(mhsv.getBtnBack())){
-                nowViewing = "220";
-                view.getCardLayout().show(mainPanel,nowViewing);
             }
         }
         else if (nowViewing.equals("31")){
@@ -900,8 +908,17 @@ public class Controller extends MouseAdapter implements ActionListener{
                 view.getCardLayout().show(mainPanel,nowViewing);
             }
             else if (source.equals(mhsk.getBtnEnter())){
-                
+                String namaKelas = mhsk.getTfMasuk();
+                String kode = mhsk.getTfKode();
+                if (model.searchKelas(model.searchDosen(kode), namaKelas) != null){
+                    model.searchKelas(model.searchDosen(kode), namaKelas).addMahasiswa(model.searchMahasiswa(cariMhs));
+                    JOptionPane.showMessageDialog(null, "Berhasil Ditambah");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Tidak Ditemukan");
+                }
             }
+            mhsk.reset();
         }
         else if (nowViewing.equals("222")){
             if (source.equals(mhsv.getBtnBack())){
