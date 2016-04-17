@@ -79,6 +79,7 @@ public class Controller extends MouseAdapter implements ActionListener{
     private String[] cMhs = { "NIM","Nama","Alamat","Jenis Kelamin"};
     private String[] cMasukKelas = { "Kode Dosen","Nama Mata Kuliah", "Mata Kuliah", "SKS"};
     private String[] cMatkul = { "Kode Mata Kuliah", "Nama Mata Kuliah", "SKS"};
+    private String[] cAddMhs = { "NIM", "Nama"};
     
     public Controller(Aplikasi model){
         this.model = model;
@@ -181,10 +182,10 @@ public class Controller extends MouseAdapter implements ActionListener{
         
         mainPanel.add(kssm, "1220");
         mainPanel.add(kss,"1221");
-        mainPanel.add(ksa,"1222");
-        mainPanel.add(ksr,"1223");
-        mainPanel.add(kstc,"1224");
-        mainPanel.add(ksv,"1225");
+        mainPanel.add(ksa,"1224");
+        mainPanel.add(ksr,"1225");
+        mainPanel.add(kstc,"1222");
+        mainPanel.add(ksv,"1223");
         
         mainPanel.add(mha,"21");
         mainPanel.add(mhs,"22");
@@ -232,6 +233,15 @@ public class Controller extends MouseAdapter implements ActionListener{
         }
     }
     
+    public void addMhsToKelasTable(ArrayList<Mahasiswa> daftarM, JTable jt){
+        initTable(jt,cAddMhs);
+        DefaultTableModel tm = (DefaultTableModel) jt.getModel();
+        for (Mahasiswa m : daftarM){
+            String[] row = {m.getNim(), m.getNama()};
+            tm.addRow(row);
+        }
+    }
+    
     public void addMasukKelasToTable(ArrayList<Dosen> daftarDosen, JTable jt){
         initTable(jt,cMasukKelas);
         DefaultTableModel tm = (DefaultTableModel) jt.getModel();
@@ -244,6 +254,7 @@ public class Controller extends MouseAdapter implements ActionListener{
                             d.getKelas(i).getMataKuliah().getNamaMK(), 
                             d.getKelas(i).getMataKuliah().getKodeMK(),
                             Integer.toString(d.getKelas(i).getMataKuliah().getSks())};
+                        tm.addRow(row);
                     }
                 }
             }
@@ -263,11 +274,8 @@ public class Controller extends MouseAdapter implements ActionListener{
                     matkul = d.getKelas(i).getMataKuliah().getNamaMK();
                     if (d.getKelas(i).isAnggotaEmpty()==false){
                         for (int j = 0; j < d.getKelas(i).getJumlahAnggota(); j++) {
-                            a = d.getKelas(i).getAnggota(j).getNama() + "\n";
+                            a = d.getKelas(i).getAnggota(j).getNama() + ", ";
                             temp = temp + a;
-                        }
-                        if (d.getKelas(i).isMKEmpty()==false){
-                            matkul = d.getKelas(i).getNamaKelas();
                         }
                     }
                 }
@@ -283,6 +291,18 @@ public class Controller extends MouseAdapter implements ActionListener{
         for (MataKuliah m : daftarMat){
             String[] row = {m.getKodeMK(),m.getNamaMK(),Integer.toString(m.getSks())};
             tm.addRow(row);
+        }
+    }
+    
+    public void addRemoveMhsFromKelasTable (Dosen d, String carKel, JTable jt){
+        initTable(jt, cAddMhs);
+        DefaultTableModel tm = (DefaultTableModel) jt.getModel();
+        if (d.getKelas(carKel).getJumlahAnggota()>= 0){
+            for (int i = 0; i < d.getKelas(carKel).getJumlahAnggota(); i++) {
+                String[] row = {d.getKelas(carKel).getAnggota(i).getNim(), 
+                    d.getKelas(carKel).getAnggota(i).getNama()};
+                tm.addRow(row);
+            }
         }
     }
     
@@ -759,14 +779,25 @@ public class Controller extends MouseAdapter implements ActionListener{
             else if (source.equals(kssm.getBtnViewTugas())){
                 nowViewing = "1223";
                 view.getCardLayout().show(mainPanel,nowViewing);
+                String tugas = "";
+                String a = "";
+                if (model.searchDosen(cariDosen).getKelas(cariKelas).getJumlahTugas() >= 0){
+                    for (int i = 0; i < model.searchDosen(cariDosen).getKelas(cariKelas).getJumlahTugas(); i++) {
+                        a = (i+1) + ". " + model.searchDosen(cariDosen).getKelas(cariKelas).getTugas(i).getJudul() + "\n";
+                        tugas = tugas + a;
+                    }
+                    ksv.setDetailTugas(tugas);
+                }
             }
             else if (source.equals(kssm.getBtnAddMhs())){
                 nowViewing = "1224";
                 view.getCardLayout().show(mainPanel,nowViewing);
+                addMhsToKelasTable(model.getDaftarMahasiswa(), ksa.getjTable1());
             }
             else if (source.equals(kssm.getBtnRemoveMhs())){
                 nowViewing = "1225";
                 view.getCardLayout().show(mainPanel,nowViewing);
+                addRemoveMhsFromKelasTable (model.searchDosen(cariDosen), cariKelas, ksr.getjTable1());
             }
             else if (source.equals(kssm.getBtnBack())){
                 nowViewing = "120";
@@ -789,6 +820,89 @@ public class Controller extends MouseAdapter implements ActionListener{
                 }
             }
         }
+        else if (nowViewing.equals("1222")){
+            if (source.equals(kstc.getBtnBack())){
+                nowViewing = "1220";
+                view.getCardLayout().show(mainPanel,nowViewing);
+            }
+            else if (source.equals(kstc.getBtnSave())){
+                String judul = kstc.getJudul();
+                model.searchDosen(cariDosen).getKelas(cariKelas).createTugas(judul);
+                JOptionPane.showMessageDialog(null, "Tugas Berhasil Ditambah");
+                kstc.reset();
+            }
+            kstc.reset();
+        }
+        else if (nowViewing.equals("1223")){
+            if (source.equals(ksv.getBtnBack())){
+                nowViewing = "1220";
+                view.getCardLayout().show(mainPanel,nowViewing);
+                ksv.reset();
+            }
+        }
+        else if (nowViewing.equals("1224")){
+            if (source.equals(ksa.getBtnBack())){
+                nowViewing = "1220";
+                view.getCardLayout().show(mainPanel,nowViewing);
+            }
+            else if (source.equals(ksa.getBtnSave())){
+                String nim = ksa.getTfNim();
+                if ((model.searchMahasiswa(nim) == null)){
+                    if (nim==""){
+                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "NIM Tidak Ditemukan");
+                    }
+                }
+                else if (model.searchMahasiswa(nim) != null){
+                    model.searchDosen(cariDosen).getKelas(cariKelas).addMahasiswa(model.searchMahasiswa(nim));
+                    JOptionPane.showMessageDialog(null, "Add Mahasiswa Berhasil");
+                }
+            }
+            ksa.reset();
+            addMhsToKelasTable(model.getDaftarMahasiswa(), ksa.getjTable1());
+        }
+        else if (nowViewing.equals("1225")){
+            if (source.equals(ksr.getBtnBack())){
+                nowViewing = "1220";
+                view.getCardLayout().show(mainPanel,nowViewing);
+            }
+            else if (source.equals(ksr.getBtnRemove())){
+                //view nya belum
+                String cariMhsR = ksr.getTfNim();
+                if ((model.searchMahasiswa(cariMhsR) == null) || (model.searchDosen(cariDosen).getKelas(cariKelas).getAnggota(cariMhsR) != null)){
+                    if (cariMhsR.equals("")){
+                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Mahasiswa Tidak Ditemukan");
+                    }
+                }
+                else if ((model.searchMahasiswa(cariMhsR) != null) && (model.searchDosen(cariDosen).getKelas(cariKelas).getAnggota(cariMhsR) != null)){
+                    String message = "Apakah Anda Yakin Untuk Menghapus Mahasiswa?";
+                    String title = "Hapus Mahasiswa ?";
+                    int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                    if (reply == JOptionPane.YES_NO_OPTION){
+                        model.searchDosen(cariDosen).getKelas(cariKelas).removeMahasiswa(model.searchMahasiswa(cariMhsR));
+                        JOptionPane.showMessageDialog(null, "Mahasiswa Berhasil Dihapus");
+                    }
+                }
+                ksr.reset();
+                addRemoveMhsFromKelasTable (model.searchDosen(cariDosen), cariKelas, ksr.getjTable1());
+            }
+        }
+        else if (nowViewing.equals("221")){
+            if (source.equals(mhsk.getBtnBack())){
+                nowViewing = "220";
+                view.getCardLayout().show(mainPanel,nowViewing);
+            }
+        }
+        else if (nowViewing.equals("222")){
+            if (source.equals(mhsv.getBtnBack())){
+                nowViewing = "220";
+                view.getCardLayout().show(mainPanel,nowViewing);
+            }
+        }
     }
-    
 }

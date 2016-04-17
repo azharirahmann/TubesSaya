@@ -173,6 +173,10 @@ public class MenuDosenKelasKelas extends javax.swing.JPanel {
         jLabel1.setText(jLabel1.getText()+s);
     }
     
+    public void reset(){
+        jLabel1.setText("");
+    }
+    
     public void addListener(ActionListener e){
         btnAddMhs.addActionListener(e);
         btnBack.addActionListener(e);

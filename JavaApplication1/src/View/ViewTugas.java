@@ -84,6 +84,10 @@ public class ViewTugas extends javax.swing.JPanel {
         txTugas.setText(s);
     }
     
+    public void reset(){
+        txTugas.setText("");
+    }
+    
     public void addListener(ActionListener e){
         btnBack.addActionListener(e);
     }

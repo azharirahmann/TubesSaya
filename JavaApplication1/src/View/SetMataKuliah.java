@@ -129,6 +129,10 @@ public class SetMataKuliah extends javax.swing.JPanel {
         return jTable1;
     }
     
+    public void reset(){
+        tfKode.setText("");
+    }
+    
     public void addListener(ActionListener e){
         btnBack.addActionListener(e);
         btnSave.addActionListener(e);

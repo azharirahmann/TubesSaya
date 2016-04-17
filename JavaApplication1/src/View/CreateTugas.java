@@ -100,6 +100,10 @@ public class CreateTugas extends javax.swing.JPanel {
         return tfJudul.getText();
     }
     
+    public void reset(){
+        tfJudul.setText("");
+    }
+    
     public void addListener(ActionListener e){
         btnBack.addActionListener(e);
         btnSave.addActionListener(e);
