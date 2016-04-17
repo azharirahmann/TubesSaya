@@ -281,6 +281,8 @@ public class Controller extends MouseAdapter implements ActionListener{
                 }
                 String[] row = {d.getKelas(i).getNamaKelas(), matkul, temp};
                 tm.addRow(row);
+                matkul = "";
+                temp = "";
             }
         }
     }
@@ -871,7 +873,7 @@ public class Controller extends MouseAdapter implements ActionListener{
             else if (source.equals(ksr.getBtnRemove())){
                 //view nya belum
                 String cariMhsR = ksr.getTfNim();
-                if ((model.searchMahasiswa(cariMhsR) == null) || (model.searchDosen(cariDosen).getKelas(cariKelas).getAnggota(cariMhsR) != null)){
+                if ((model.searchMahasiswa(cariMhsR) == null) || (model.searchDosen(cariDosen).getKelas(cariKelas).getAnggota(cariMhsR) == null)){
                     if (cariMhsR.equals("")){
                         JOptionPane.showMessageDialog(null, "Input Kosong");
                     }
@@ -896,6 +898,9 @@ public class Controller extends MouseAdapter implements ActionListener{
             if (source.equals(mhsk.getBtnBack())){
                 nowViewing = "220";
                 view.getCardLayout().show(mainPanel,nowViewing);
+            }
+            else if (source.equals(mhsk.getBtnEnter())){
+                
             }
         }
         else if (nowViewing.equals("222")){
