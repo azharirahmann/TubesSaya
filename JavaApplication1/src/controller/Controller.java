@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.*;
+import Database.Database;
 
 public class Controller extends MouseAdapter implements ActionListener{
 
@@ -206,6 +207,9 @@ public class Controller extends MouseAdapter implements ActionListener{
         
         view.getCardLayout().show(mainPanel,nowViewing);
         view.setVisible(true);
+        model.setMahasiswa();
+        model.setMataKuliah();
+        model.setDosen(); //load dosen dari database
     }
     public void initTable(JTable x, String[] column){
         DefaultTableModel tm = new DefaultTableModel(column, 0){
@@ -411,10 +415,16 @@ public class Controller extends MouseAdapter implements ActionListener{
                 String alamat = da.getTfAlamat();
                 String jenisKelamin = da.getJenisKelamin();
                 String kodeDosen = da.getTfKode();
-                model.addDosen(nama, alamat, jenisKelamin, kodeDosen); //bikin method reset di tiap view yang input
-                da.showMessage("Data Berhasil Disimpan");
+                if (model.searchDosen(kodeDosen)!=null){
+                    JOptionPane.showMessageDialog(null,"Kode Dosen Sudah Ada");
+                }
+                else{
+                    model.addDosen(nama, alamat, jenisKelamin, kodeDosen);
+                    da.showMessage("Data Berhasil Disimpan");
+                }
                 da.reset();
             }
+            da.reset();
         }
         else if (nowViewing.equals("12")){ //search dosen
             if (source.equals(ds.getBtnBack())){
@@ -513,8 +523,13 @@ public class Controller extends MouseAdapter implements ActionListener{
             }
             else if (source.equals(kc.getBtnSave())){
                 String nama = kc.getTfNamaKelas();
-                model.searchDosen(cariDosen).createKelas(nama);
-                JOptionPane.showMessageDialog(null, "Kelas Berhasil Ditambah");
+                if (model.searchKelas(model.searchDosen(cariDosen),nama) != null || model.namaKelasSama(model.getDaftarDosen(), nama) == true){
+                    JOptionPane.showMessageDialog(null, "Nama Kelas Sudah Ada");
+                }
+                else if (model.searchKelas(model.searchDosen(cariDosen),nama) == null){
+                    model.AddKelas(cariDosen, nama);
+                    
+                }
             }
             kc.reset();
         }
@@ -570,7 +585,7 @@ public class Controller extends MouseAdapter implements ActionListener{
                     String title = "Hapus Kelas ?";
                     int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
                     if (reply == JOptionPane.YES_NO_OPTION){
-                        
+                        model.removeDBKelas(model.searchKelas(model.searchDosen(cariDosen), cariKelasR));
                         model.searchDosen(cariDosen).removeKelas(model.searchKelas(model.searchDosen(cariDosen), cariKelasR));
                         JOptionPane.showMessageDialog(null, "Kelas Berhasil Dihapus");
                     }
@@ -812,6 +827,7 @@ public class Controller extends MouseAdapter implements ActionListener{
             else if (source.equals(kssm.getBtnBack())){
                 nowViewing = "120";
                 view.getCardLayout().show(mainPanel,nowViewing);
+                kssm.reset();
             }
         }
         else if (nowViewing.equals("1221")){
@@ -826,6 +842,7 @@ public class Controller extends MouseAdapter implements ActionListener{
                 }
                 else{
                     model.searchDosen(cariDosen).getKelas(cariKelas).setMataKuliah((model.searchMataKuliah(matkulA)));
+                    model.updateMatkul(model.searchDosen(cariDosen), cariKelas, matkulA);
                     JOptionPane.showMessageDialog(null, "Set Mata Kuliah Berhasil");
                 }
             }

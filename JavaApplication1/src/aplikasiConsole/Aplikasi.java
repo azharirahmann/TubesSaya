@@ -8,7 +8,7 @@ import model.Kelas;
 import model.Mahasiswa;
 import model.MataKuliah;
 import java.util.stream.Collectors;
-
+import Database.Database;
 
 /**
  *
@@ -16,19 +16,67 @@ import java.util.stream.Collectors;
  */
 public class Aplikasi {
 
-    private ArrayList<Dosen> daftarDosen = new ArrayList<>();
-    private ArrayList<Mahasiswa> daftarMahasiswa = new ArrayList<>();
-    private ArrayList<MataKuliah> daftarMataKuliah = new ArrayList<>();
+    private ArrayList<Dosen> daftarDosen;
+    private ArrayList<Mahasiswa> daftarMahasiswa;
+    private ArrayList<MataKuliah> daftarMataKuliah;
     Scanner s = new Scanner(System.in);
     Scanner in = new Scanner(System.in);
     private Mahasiswa m = null;
     private Dosen d = null;
     private MataKuliah mk = null;
     private Kelas k = null;
+    private Database db;
 
+    public Aplikasi(){
+        this.daftarDosen = new ArrayList<>();
+        this.daftarMahasiswa = new ArrayList<>();
+        this.daftarMataKuliah = new ArrayList<>();
+        this.db = new Database();
+        db.connect();
+    }
+    public void setDosen(){
+        if (db.loadDosen() != null){
+            this.daftarDosen = db.loadDosen();
+            for (int i = 0; i < daftarDosen.size(); i++) { //LOOPING BUAT NAMPUNG KELAS YANG DIBUAT DOSEN
+                db.loadKelas(daftarDosen.get(i));
+            }
+            for (int i = 0; i < daftarDosen.size(); i++) { //LOOPING BUAT NAMPUNG KELAS YANG UDH DISET MATKULNYA
+                for (int j = 0; j < daftarDosen.get(i).getJumlahKelas(); j++) {
+                    db.loadMatkul(daftarDosen.get(i).getKelas(j));
+                }
+            }
+        }
+    }
+    
+    public void setMahasiswa(){
+        if (db.loadMahasiswa() != null){
+            this.daftarMahasiswa = db.loadMahasiswa();
+        }
+    }
+    
+    public void setMataKuliah(){
+        if (db.loadMataKuliah()!=null){
+            this.daftarMataKuliah = db.loadMataKuliah();
+        }
+    }
+    
+    public boolean namaKelasSama(ArrayList<Dosen> d, String nama){
+        boolean t = false;
+        for (int i = 0; i < d.size(); i++) {
+                    for (int j = 0; j < d.get(i).getJumlahKelas(); j++) {
+                        if (d.get(i).isKelasEmpty() == false){
+                            if (nama.equals(d.get(i).getKelas(j).getNamaKelas())){
+                                t = true;
+                            }
+                        }
+                    }
+                }
+        return t;
+    }
     
     public void addDosen(String nama, String alamat, String jenisKelamin, String kodeDosen) {
         daftarDosen.add(new Dosen(nama, alamat, jenisKelamin, kodeDosen));
+        db.saveDosen(new Dosen(nama, alamat, jenisKelamin, kodeDosen));
     }
 
     public Dosen searchDosen(String kodeDosen) {
@@ -43,6 +91,7 @@ public class Aplikasi {
     }
 
     public void removeDosen(String kodeDosen) {
+        db.deleteDosen(searchDosen(kodeDosen));
         daftarDosen.remove(searchDosen(kodeDosen));
     }
     
@@ -72,6 +121,7 @@ public class Aplikasi {
     
     public void addMahasiswa(String nama, String alamat, String jenisKelamin, String nim) {
         daftarMahasiswa.add(new Mahasiswa(nama, alamat, jenisKelamin, nim));
+        db.saveMahasiswa(new Mahasiswa(nama, alamat, jenisKelamin, nim));
     }
     
     public Mahasiswa searchMahasiswa(String nim) {
@@ -86,6 +136,7 @@ public class Aplikasi {
     }
 
     public void removeMahasiswa(String nim) {
+        db.deleteMahasiswa(searchMahasiswa(nim));
         daftarMahasiswa.remove(searchMahasiswa(nim));
     }
     
@@ -102,6 +153,7 @@ public class Aplikasi {
 
     public void addMataKuliah(String namaMK, String kodeMK, int sks) {
         daftarMataKuliah.add(new MataKuliah(namaMK, kodeMK, sks));
+        db.saveMataKuliah(new MataKuliah(namaMK, kodeMK, sks));
     }
 
     public MataKuliah searchMataKuliah(String kodeMK) {
@@ -116,6 +168,7 @@ public class Aplikasi {
     }
 
     public void removeMataKuliah(String kodeMK) {
+        db.deleteMataKuliah(searchMataKuliah(kodeMK));
         daftarMataKuliah.remove(searchMataKuliah(kodeMK));
     }
     
@@ -129,7 +182,15 @@ public class Aplikasi {
         }
         System.out.println("-----------------------------------------------");
     }
-
+    
+    public void removeDBKelas(Kelas k){
+        db.deleteKelas(k);
+    }
+    
+    public void updateMatkul(Dosen d, String namaKelas, String kodeMK){
+        db.saveSetMatkul(d, namaKelas, kodeMK);
+    }
+    
     public Kelas searchKelas(Dosen d, String namaKelas) {
         k = null;
         for (int i = 0; i < d.getJumlahKelas(); i++) {
@@ -139,6 +200,11 @@ public class Aplikasi {
             }
         }
         return k;
+    }
+    
+    public void AddKelas(String cariDosen, String namaKelas){
+        searchDosen(cariDosen).createKelas(namaKelas);
+        db.saveKelas(searchDosen(cariDosen), namaKelas);
     }
     
     public void viewKelas(Dosen d){

@@ -30,8 +30,7 @@ public class Dosen extends Orang {
     }
     
     public void createKelas(String namaKelas){
-        Kelas k1 = new Kelas(namaKelas);
-        daftarKelas.add(k1);
+        daftarKelas.add(new Kelas(namaKelas));
     }
     
     public Kelas getKelas(int indeks){
