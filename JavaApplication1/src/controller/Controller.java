@@ -638,6 +638,7 @@ public class Controller extends MouseAdapter implements ActionListener{
                     if (reply == JOptionPane.YES_NO_OPTION){
                         nowViewing = "220";
                         view.getCardLayout().show(mainPanel,nowViewing);
+                        mhss.setNama(model.searchMahasiswa(cariMhs).getNama());
                     }
                 }
                 mhs.reset();
@@ -855,6 +856,7 @@ public class Controller extends MouseAdapter implements ActionListener{
             else if (source.equals(kstc.getBtnSave())){
                 String judul = kstc.getJudul();
                 model.searchDosen(cariDosen).getKelas(cariKelas).createTugas(judul);
+                model.insertDBTugas(model.searchDosen(cariDosen), cariKelas, judul);
                 JOptionPane.showMessageDialog(null, "Tugas Berhasil Ditambah");
                 kstc.reset();
             }
@@ -884,6 +886,7 @@ public class Controller extends MouseAdapter implements ActionListener{
                 }
                 else if (model.searchMahasiswa(nim) != null){
                     model.searchDosen(cariDosen).getKelas(cariKelas).addMahasiswa(model.searchMahasiswa(nim));
+                    model.saveMahasiswaToKelas(model.searchMahasiswa(nim), model.searchDosen(cariDosen).getKelas(cariKelas));
                     JOptionPane.showMessageDialog(null, "Add Mahasiswa Berhasil");
                 }
             }
@@ -912,6 +915,7 @@ public class Controller extends MouseAdapter implements ActionListener{
                     int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
                     if (reply == JOptionPane.YES_NO_OPTION){
                         model.searchDosen(cariDosen).getKelas(cariKelas).removeMahasiswa(model.searchMahasiswa(cariMhsR));
+                        model.deleteDBMhsFromKelas(model.searchDosen(cariDosen).getKelas(cariKelas), model.searchMahasiswa(cariMhsR));
                         JOptionPane.showMessageDialog(null, "Mahasiswa Berhasil Dihapus");
                     }
                 }

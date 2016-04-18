@@ -211,4 +211,78 @@ public class Database {
         return k;
     }
     
+    public void saveTugas(Dosen d, String namaKelas, String judul){
+        try{
+            String query = "INSERT INTO TUGAS (NAMAKELAS,JUDUL) VALUES " + 
+                    "('" + d.getKelas(namaKelas).getNamaKelas() + 
+                    "','" + judul +"')";
+            st.executeUpdate(query);
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public Kelas loadTugas(Kelas k){
+        try{
+            String query = "Select*from tugas";
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                if (k.getNamaKelas().equals(rs.getString(1))){
+                    k.createTugas(rs.getString(2));
+                }
+            }
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return k;
+    }
+    
+    public void saveMahasiswaToKelas(Mahasiswa m, Kelas k){
+        try{
+            String query = "Insert into detilKelas (NamaKelas,NIM) Values ("
+                    + "'" + k.getNamaKelas() + "'," 
+                    + "'" + m.getNim() + "')";
+            st.executeUpdate(query);
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public Kelas loadMhsToKelas(Kelas k){
+        try{
+            String query = "Select * from detilkelas";
+            ResultSet rs = st.executeQuery(query);
+            String nim="";
+            while(rs.next()){
+                if(k.getNamaKelas().equals(rs.getString(1))){
+                    nim=rs.getString(2);
+                }
+            }
+            
+            String query2 = "Select*from mahasiswa";
+            ResultSet rs2 = st.executeQuery(query2);
+            while(rs2.next()){
+                if(nim.equals(rs2.getString(1))){
+                    k.addMahasiswa(new Mahasiswa(rs2.getString(2),rs2.getString(3),rs2.getString(3),rs2.getString(1)));
+                }
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return k;
+    }
+    
+    public void deleteMhsFromKelas(Kelas k, Mahasiswa m){
+        try{
+            String query = "Delete from detilKelas where nim='"
+                    + m.getNim() + "'";
+            st.executeUpdate(query);
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
 }

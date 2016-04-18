@@ -116,6 +116,10 @@ public class MenuMahasiswaKelas extends javax.swing.JPanel {
     public void setNama(String s){
         jLabel1.setText(jLabel1.getText()+s);
     }
+    
+    public void reset(){
+        jLabel1.setText("");
+    }
 
     public void addListener(ActionListener e){
         btnBack.addActionListener(e);

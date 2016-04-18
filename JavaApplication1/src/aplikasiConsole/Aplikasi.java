@@ -42,7 +42,9 @@ public class Aplikasi {
             }
             for (int i = 0; i < daftarDosen.size(); i++) { //LOOPING BUAT NAMPUNG KELAS YANG UDH DISET MATKULNYA
                 for (int j = 0; j < daftarDosen.get(i).getJumlahKelas(); j++) {
-                    db.loadMatkul(daftarDosen.get(i).getKelas(j));
+                    db.loadMatkul(daftarDosen.get(i).getKelas(j)); //MATKUL
+                    db.loadTugas(daftarDosen.get(i).getKelas(j)); //TUGAS
+                    db.loadMhsToKelas(daftarDosen.get(i).getKelas(j)); //ANGGOTA
                 }
             }
         }
@@ -189,6 +191,18 @@ public class Aplikasi {
     
     public void updateMatkul(Dosen d, String namaKelas, String kodeMK){
         db.saveSetMatkul(d, namaKelas, kodeMK);
+    }
+    
+    public void insertDBTugas(Dosen d, String namaKelas, String judul){
+        db.saveTugas(d, namaKelas, judul);
+    }
+    
+    public void saveMahasiswaToKelas(Mahasiswa m, Kelas k){
+        db.saveMahasiswaToKelas(m, k);
+    }
+    
+    public void deleteDBMhsFromKelas(Kelas k, Mahasiswa m){
+        db.deleteMhsFromKelas(k, m);
     }
     
     public Kelas searchKelas(Dosen d, String namaKelas) {
