@@ -933,6 +933,7 @@ public class Controller extends MouseAdapter implements ActionListener{
                 String kode = mhsk.getTfKode();
                 if (model.searchKelas(model.searchDosen(kode), namaKelas) != null){
                     model.searchKelas(model.searchDosen(kode), namaKelas).addMahasiswa(model.searchMahasiswa(cariMhs));
+                    model.saveMahasiswaToKelas(model.searchMahasiswa(cariMhs), model.searchKelas(model.searchDosen(kode), namaKelas));
                     JOptionPane.showMessageDialog(null, "Berhasil Ditambah");
                 }
                 else{
