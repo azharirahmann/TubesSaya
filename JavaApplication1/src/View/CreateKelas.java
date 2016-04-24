@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +19,14 @@ public class CreateKelas extends javax.swing.JPanel {
      */
     public CreateKelas() {
         initComponents();
+    }
+    
+    public void showMessage(String s){
+        JOptionPane.showMessageDialog(null, s);
+    }
+    
+    public int showConfirmDialog(String m, String t){
+        return JOptionPane.showConfirmDialog(null, m, t, JOptionPane.YES_NO_OPTION);
     }
 
     /**

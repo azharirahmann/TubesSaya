@@ -57,6 +57,7 @@ public class Controller extends MouseAdapter implements ActionListener{
     private MenuDosenKelasKelas kssm;
     private SetMataKuliah kss;
     private CreateTugas kstc;
+    private RemoveTugas ksrt;
     private AddMahasiswaToKelas ksa;
     private RemoveMahasiswaFromKelas ksr;
     private ViewTugas ksv;
@@ -109,6 +110,7 @@ public class Controller extends MouseAdapter implements ActionListener{
         ksa = new AddMahasiswaToKelas();
         ksr = new RemoveMahasiswaFromKelas();
         ksv = new ViewTugas();
+        ksrt = new RemoveTugas();
         
         //Mahasiswa
         mha = new AddMahasiswa();
@@ -148,6 +150,7 @@ public class Controller extends MouseAdapter implements ActionListener{
         ksa.addListener(this);
         ksr.addListener(this);
         ksv.addListener(this);
+        ksrt.addListener(this);
         
         //Mahasiswa
         mha.addListener(this);
@@ -188,6 +191,7 @@ public class Controller extends MouseAdapter implements ActionListener{
         mainPanel.add(ksr,"1225");
         mainPanel.add(kstc,"1222");
         mainPanel.add(ksv,"1223");
+        mainPanel.add(ksrt, "1226");
         
         mainPanel.add(mha,"21");
         mainPanel.add(mhs,"22");
@@ -416,7 +420,7 @@ public class Controller extends MouseAdapter implements ActionListener{
                 String jenisKelamin = da.getJenisKelamin();
                 String kodeDosen = da.getTfKode();
                 if (model.searchDosen(kodeDosen)!=null){
-                    JOptionPane.showMessageDialog(null,"Kode Dosen Sudah Ada");
+                    da.showMessage("Kode Dosen Sudah Ada");
                 }
                 else{
                     model.addDosen(nama, alamat, jenisKelamin, kodeDosen);
@@ -436,16 +440,16 @@ public class Controller extends MouseAdapter implements ActionListener{
                 cariDosen = ds.getTfKode();
                 if (model.searchDosen(cariDosen) == null){
                     if (cariDosen.equals("")){
-                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                        ds.showMessage("Input Kosong");
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Dosen Tidak Ditemukan");
+                        ds.showMessage("Dosen Tidak Ditemukan");
                     }
                 }
                 else if (model.searchDosen(cariDosen) != null){
                     String message = "Apakah Anda Ingin Masuk Sebagai Dosen "+model.searchDosen(cariDosen).getNama()+" ?";
                     String title = "Dosen Ditemukan";
-                    int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                    int reply = ds.showConfirmDialog(message, title);
                     if (reply == JOptionPane.YES_NO_OPTION){
                         nowViewing = "120";
                         view.getCardLayout().show(mainPanel,nowViewing);
@@ -461,23 +465,22 @@ public class Controller extends MouseAdapter implements ActionListener{
                 view.getCardLayout().show(mainPanel,nowViewing);
             }
             else if (source.equals(dr.getBtnRemove())){
-                //view nya belum
                 String cariDosenR = dr.getTfKode();
                 if (model.searchDosen(cariDosenR) == null){
                     if (cariDosenR.equals("")){
-                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                        dr.showMessage("Input Kosong");
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Dosen Tidak Ditemukan");
+                        dr.showMessage("Dosen Tidak Ditemukan");
                     }
                 }
                 else if (model.searchDosen(cariDosenR) != null){
                     String message = "Apakah Anda Yakin Untuk Menghapus Dosen?";
                     String title = "Hapus Dosen ?";
-                    int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                    int reply = dr.showConfirmDialog(message, title);
                     if (reply == JOptionPane.YES_NO_OPTION){
                         model.removeDosen(cariDosenR);
-                        JOptionPane.showMessageDialog(null, "Dosen Berhasil Dihapus");
+                        dr.showMessage("Dosen Berhasil Dihapus");
                     }
                 }
                 dr.reset();
@@ -524,11 +527,11 @@ public class Controller extends MouseAdapter implements ActionListener{
             else if (source.equals(kc.getBtnSave())){
                 String nama = kc.getTfNamaKelas();
                 if (model.searchKelas(model.searchDosen(cariDosen),nama) != null || model.namaKelasSama(model.getDaftarDosen(), nama) == true){
-                    JOptionPane.showMessageDialog(null, "Nama Kelas Sudah Ada");
+                    kc.showMessage("Nama Kelas Sudah Ada");
                 }
                 else if (model.searchKelas(model.searchDosen(cariDosen),nama) == null){
                     model.AddKelas(cariDosen, nama);
-                    
+                    kc.showMessage("Kelas Berhasil Ditambah");
                 }
             }
             kc.reset();
@@ -544,16 +547,16 @@ public class Controller extends MouseAdapter implements ActionListener{
                 
                 if (model.searchKelas(model.searchDosen(cariDosen), cariKelas) == null){
                     if (cariKelas.equals("")){
-                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                        ks.showMessage("Input Kosong");
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Kelas Tidak Ditemukan");
+                        ks.showMessage("Kelas Tidak Ditemukan");
                     }
                 }
                 else if (model.searchKelas(model.searchDosen(cariDosen), cariKelas) != null){
                     String message = "Apakah Anda Ingin Melakukan Setting pada Kelas "+model.searchKelas(model.searchDosen(cariDosen), cariKelas).getNamaKelas()+" ?";
                     String title = "Kelas Ditemukan";
-                    int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                    int reply = ks.showConfirmDialog(message, title);
                     if (reply == JOptionPane.YES_NO_OPTION){
                         nowViewing = "1220";
                         view.getCardLayout().show(mainPanel,nowViewing);
@@ -574,20 +577,20 @@ public class Controller extends MouseAdapter implements ActionListener{
                 String cariKelasR = kr.getTfNamaKelas();
                 if (model.searchKelas(model.searchDosen(cariDosen), cariKelasR) == null){
                     if (cariKelasR.equals("")){
-                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                        kr.showMessage("Input Kosong");
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Kelas Tidak Ditemukan");
+                        kr.showMessage("Kelas Tidak Ditemukan");
                     }
                 }
                 else if (model.searchKelas(model.searchDosen(cariDosen), cariKelasR) != null){
                     String message = "Apakah Anda Yakin Untuk Menghapus Kelas?";
                     String title = "Hapus Kelas ?";
-                    int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                    int reply = kr.showConfirmDialog(message, title);
                     if (reply == JOptionPane.YES_NO_OPTION){
                         model.removeDBKelas(model.searchKelas(model.searchDosen(cariDosen), cariKelasR));
                         model.searchDosen(cariDosen).removeKelas(model.searchKelas(model.searchDosen(cariDosen), cariKelasR));
-                        JOptionPane.showMessageDialog(null, "Kelas Berhasil Dihapus");
+                        kr.showMessage("Kelas Berhasil Dihapus");
                     }
                 }
             }
@@ -611,7 +614,7 @@ public class Controller extends MouseAdapter implements ActionListener{
                 String jk = mha.getJenisKelamin();
                 String nim = mha.getTfNim();
                 model.addMahasiswa(nama, alamat, jk, nim);
-                JOptionPane.showMessageDialog(null, "Mahasiswa Berhasil Ditambah");
+                mha.showMessage("Mahasiswa Berhasil Ditambah");
                 mha.reset();
             }
         }
@@ -625,16 +628,16 @@ public class Controller extends MouseAdapter implements ActionListener{
                 cariMhs = mhs.getTfNim();
                 if (model.searchMahasiswa(cariMhs) == null){
                     if (cariMhs.equals("")){
-                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                        mhs.showMessage("Input Kosong");
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Mahasiswa Tidak Ditemukan");
+                        mhs.showMessage("Mahasiswa Tidak Ditemukan");
                     }
                 }
                 else if (model.searchMahasiswa(cariMhs) != null){
                     String message = "Apakah Anda Ingin Masuk Sebagai Mahasiswa "+model.searchMahasiswa(cariMhs).getNama()+" ?";
                     String title = "Mahasiswa Ditemukan";
-                    int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                    int reply = mhs.showConfirmDialog(message, title);
                     if (reply == JOptionPane.YES_NO_OPTION){
                         nowViewing = "220";
                         view.getCardLayout().show(mainPanel,nowViewing);
@@ -654,19 +657,19 @@ public class Controller extends MouseAdapter implements ActionListener{
                 String cariMhsR = mhr.getTfNim();
                 if (model.searchMahasiswa(cariMhsR) == null){
                     if (cariMhsR.equals("")){
-                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                        mhr.showMessage("Input Kosong");
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Mahasiswa Tidak Ditemukan");
+                        mhr.showMessage("Mahasiswa Tidak Ditemukan");
                     }
                 }
                 else if (model.searchMahasiswa(cariMhsR) != null){
                     String message = "Apakah Anda Yakin Untuk Menghapus Mahasiswa?";
                     String title = "Hapus Mahasiswa ?";
-                    int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                    int reply = mhr.showConfirmDialog(message, title);
                     if (reply == JOptionPane.YES_NO_OPTION){
                         model.removeMahasiswa(cariMhsR);
-                        JOptionPane.showMessageDialog(null, "Mahasiswa Berhasil Dihapus");
+                        mhr.showMessage("Mahasiswa Berhasil Dihapus");
                     }
                 }
                 mhr.reset();
@@ -727,7 +730,7 @@ public class Controller extends MouseAdapter implements ActionListener{
                 String kode = mka.getTfKode();
                 int sks = mka.getSks();
                 model.addMataKuliah(nama, kode, sks);
-                JOptionPane.showMessageDialog(null, "Mata Kuliah Berhasil Ditambah");
+                mka.showMessage("Mata Kuliah Berhasil Ditambah");
                 mka.reset();
             }
             mka.reset();
@@ -743,10 +746,10 @@ public class Controller extends MouseAdapter implements ActionListener{
                 cariMatkul = mks.getTfKode();
                 if (model.searchMataKuliah(cariMatkul) == null){
                     if (cariMatkul.equals("")){
-                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                        mks.showMessage("Input Kosong");
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Mata Kuliah Tidak Ditemukan");
+                        mks.showMessage("Mata Kuliah Tidak Ditemukan");
                     }
                 }
                 else if (model.searchMataKuliah(cariMatkul) != null){
@@ -767,19 +770,19 @@ public class Controller extends MouseAdapter implements ActionListener{
                 String cariMatkulR = mkr.getTfKode();
                 if (model.searchMataKuliah(cariMatkulR) == null){
                     if (cariMatkulR.equals("")){
-                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                        mkr.showMessage("Input Kosong");
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Mata Kuliah Tidak Ditemukan");
+                        mkr.showMessage("Mata Kuliah Tidak Ditemukan");
                     }
                 }
                 else if (model.searchMataKuliah(cariMatkulR) != null){
                     String message = "Apakah Anda Yakin Untuk Menghapus Mata Kuliah?";
                     String title = "Hapus Mata Kuliah ?";
-                    int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                    int reply = mkr.showConfirmDialog(message, title);
                     if (reply == JOptionPane.YES_NO_OPTION){
                         model.removeMataKuliah(cariMatkulR);
-                        JOptionPane.showMessageDialog(null, "Mata Kuliah Berhasil Dihapus");
+                        mkr.showMessage("Mata Kuliah Berhasil Dihapus");
                     }
                 }
                 mkr.reset();
@@ -830,6 +833,19 @@ public class Controller extends MouseAdapter implements ActionListener{
                 view.getCardLayout().show(mainPanel,nowViewing);
                 kssm.reset();
             }
+            else if (source.equals(kssm.getBtnRemoveTugas())){
+                nowViewing = "1226";
+                view.getCardLayout().show(mainPanel,nowViewing);
+                String tugas = "";
+                String a = "";
+                if (model.searchDosen(cariDosen).getKelas(cariKelas).getJumlahTugas() >= 0){
+                    for (int i = 0; i < model.searchDosen(cariDosen).getKelas(cariKelas).getJumlahTugas(); i++) {
+                        a = (i+1) + ". " + model.searchDosen(cariDosen).getKelas(cariKelas).getTugas(i).getJudul() + "\n";
+                        tugas = tugas + a;
+                    }
+                    ksrt.setDetailTugas(tugas);
+                }
+            }
         }
         else if (nowViewing.equals("1221")){
             if (source.equals(kss.getBtnBack())){
@@ -839,12 +855,12 @@ public class Controller extends MouseAdapter implements ActionListener{
             else if (source.equals(kss.getBtnSave())){
                 String matkulA = kss.getKodeMatkul();
                 if (model.searchMataKuliah(matkulA) == null){
-                    JOptionPane.showMessageDialog(null, "Mata Kuliah Tidak Ada");
+                    kss.showMessage("Mata Kuliah Tidak Ada");
                 }
                 else{
                     model.searchDosen(cariDosen).getKelas(cariKelas).setMataKuliah((model.searchMataKuliah(matkulA)));
                     model.updateMatkul(model.searchDosen(cariDosen), cariKelas, matkulA);
-                    JOptionPane.showMessageDialog(null, "Set Mata Kuliah Berhasil");
+                    kss.showMessage("Set Mata Kuliah Berhasil");
                 }
             }
         }
@@ -857,7 +873,7 @@ public class Controller extends MouseAdapter implements ActionListener{
                 String judul = kstc.getJudul();
                 model.searchDosen(cariDosen).getKelas(cariKelas).createTugas(judul);
                 model.insertDBTugas(model.searchDosen(cariDosen), cariKelas, judul);
-                JOptionPane.showMessageDialog(null, "Tugas Berhasil Ditambah");
+                kstc.showMessage("Tugas Berhasil Ditambah");
                 kstc.reset();
             }
             kstc.reset();
@@ -878,16 +894,16 @@ public class Controller extends MouseAdapter implements ActionListener{
                 String nim = ksa.getTfNim();
                 if ((model.searchMahasiswa(nim) == null)){
                     if (nim==""){
-                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                        ksa.showMessage("Input Kosong");
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "NIM Tidak Ditemukan");
+                        ksa.showMessage("NIM Tidak Ditemukan");
                     }
                 }
                 else if (model.searchMahasiswa(nim) != null){
                     model.searchDosen(cariDosen).getKelas(cariKelas).addMahasiswa(model.searchMahasiswa(nim));
                     model.saveMahasiswaToKelas(model.searchMahasiswa(nim), model.searchDosen(cariDosen).getKelas(cariKelas));
-                    JOptionPane.showMessageDialog(null, "Add Mahasiswa Berhasil");
+                    ksa.showMessage("Add Mahasiswa Berhasil");
                 }
             }
             ksa.reset();
@@ -903,25 +919,57 @@ public class Controller extends MouseAdapter implements ActionListener{
                 String cariMhsR = ksr.getTfNim();
                 if ((model.searchMahasiswa(cariMhsR) == null) || (model.searchDosen(cariDosen).getKelas(cariKelas).getAnggota(cariMhsR) == null)){
                     if (cariMhsR.equals("")){
-                        JOptionPane.showMessageDialog(null, "Input Kosong");
+                        ksr.showMessage("Input Kosong");
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Mahasiswa Tidak Ditemukan");
+                        ksr.showMessage("Mahasiswa Tidak Ditemukan");
                     }
                 }
                 else if ((model.searchMahasiswa(cariMhsR) != null) && (model.searchDosen(cariDosen).getKelas(cariKelas).getAnggota(cariMhsR) != null)){
                     String message = "Apakah Anda Yakin Untuk Menghapus Mahasiswa?";
                     String title = "Hapus Mahasiswa ?";
-                    int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                    int reply = ksr.showConfirmDialog(message, title);
                     if (reply == JOptionPane.YES_NO_OPTION){
                         model.searchDosen(cariDosen).getKelas(cariKelas).removeMahasiswa(model.searchMahasiswa(cariMhsR));
                         model.deleteDBMhsFromKelas(model.searchDosen(cariDosen).getKelas(cariKelas), model.searchMahasiswa(cariMhsR));
-                        JOptionPane.showMessageDialog(null, "Mahasiswa Berhasil Dihapus");
+                        ksr.showMessage("Mahasiswa Berhasil Dihapus");
                     }
                 }
                 ksr.reset();
                 addRemoveMhsFromKelasTable (model.searchDosen(cariDosen), cariKelas, ksr.getjTable1());
             }
+        }
+        else if (nowViewing.equals("1226")){
+            if (source.equals(ksrt.getBtnBack())){
+                nowViewing = "1220";
+                view.getCardLayout().show(mainPanel,nowViewing);
+            }
+            else if (source.equals(ksrt.getBtnRemove())){
+                if (ksrt.getNomorTugas().equals("")){
+                    ksrt.showMessage("Input Tidak Boleh Kosong");
+                }
+                else{
+                    int nomor = Integer.parseInt(ksrt.getNomorTugas());
+                    if (nomor-1 < model.searchDosen(cariDosen).getKelas(cariKelas).getJumlahTugas()){
+                        model.deleteDBTugas(model.searchDosen(cariDosen).getKelas(cariKelas), model.searchDosen(cariDosen).getKelas(cariKelas).getTugas(nomor-1));
+                        model.searchDosen(cariDosen).getKelas(cariKelas).removeTugas(nomor-1);
+                        ksrt.showMessage("Tugas Berhasil Dihapus");
+                    }
+                    else{
+                        ksrt.showMessage("Nomor Tugas Tidak Ditemukan");
+                    }
+                    String tugas = "";
+                    String a = "";
+                    if (model.searchDosen(cariDosen).getKelas(cariKelas).getJumlahTugas() >= 0){
+                        for (int i = 0; i < model.searchDosen(cariDosen).getKelas(cariKelas).getJumlahTugas(); i++) {
+                            a = (i+1) + ". " + model.searchDosen(cariDosen).getKelas(cariKelas).getTugas(i).getJudul() + "\n";
+                            tugas = tugas + a;
+                        }
+                        ksrt.setDetailTugas(tugas);
+                    }
+                }
+            }
+            ksrt.reset();
         }
         else if (nowViewing.equals("221")){
             if (source.equals(mhsk.getBtnBack())){
@@ -934,10 +982,10 @@ public class Controller extends MouseAdapter implements ActionListener{
                 if (model.searchKelas(model.searchDosen(kode), namaKelas) != null){
                     model.searchKelas(model.searchDosen(kode), namaKelas).addMahasiswa(model.searchMahasiswa(cariMhs));
                     model.saveMahasiswaToKelas(model.searchMahasiswa(cariMhs), model.searchKelas(model.searchDosen(kode), namaKelas));
-                    JOptionPane.showMessageDialog(null, "Berhasil Ditambah");
+                    mhsk.showMessage("Berhasil Ditambah");
                 }
                 else{
-                    JOptionPane.showMessageDialog(null, "Tidak Ditemukan");
+                    mhsk.showMessage("Tidak Ditemukan");
                 }
             }
             mhsk.reset();

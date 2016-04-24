@@ -9,6 +9,7 @@ import model.Mahasiswa;
 import model.MataKuliah;
 import java.util.stream.Collectors;
 import Database.Database;
+import model.Tugas;
 
 /**
  *
@@ -204,6 +205,10 @@ public class Aplikasi {
     
     public void deleteDBMhsFromKelas(Kelas k, Mahasiswa m){
         db.deleteMhsFromKelas(k, m);
+    }
+    
+    public void deleteDBTugas(Kelas k, Tugas t){
+        db.deleteTugas(k, t);
     }
     
     public Kelas searchKelas(Dosen d, String namaKelas) {

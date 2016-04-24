@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -19,6 +20,14 @@ public class SetMataKuliah extends javax.swing.JPanel {
      */
     public SetMataKuliah() {
         initComponents();
+    }
+    
+    public void showMessage(String s){
+        JOptionPane.showMessageDialog(null, s);
+    }
+    
+    public int showConfirmDialog(String m, String t){
+        return JOptionPane.showConfirmDialog(null, m, t, JOptionPane.YES_NO_OPTION);
     }
 
     /**

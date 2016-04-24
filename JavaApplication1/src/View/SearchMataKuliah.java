@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 /**
@@ -19,6 +20,10 @@ public class SearchMataKuliah extends javax.swing.JPanel {
      */
     public SearchMataKuliah() {
         initComponents();
+    }
+    
+    public void showMessage(String s){
+        JOptionPane.showMessageDialog(null, s);
     }
 
     /**
@@ -51,6 +56,7 @@ public class SearchMataKuliah extends javax.swing.JPanel {
             }
         });
 
+        txMatkul.setEditable(false);
         txMatkul.setColumns(20);
         txMatkul.setRows(5);
         jScrollPane1.setViewportView(txMatkul);

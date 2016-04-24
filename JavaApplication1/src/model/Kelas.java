@@ -41,8 +41,9 @@ public class Kelas {
         tugas.add(new Tugas(judul));
     }
     
-    public boolean removeTugas(Tugas t){
-        if ((t instanceof Tugas) && t != null)
+    public void removeTugas(int t){
+        tugas.remove(t);
+        /*if ((t instanceof Tugas) && t != null)
         {
             tugas.remove(t);
             return true;
@@ -50,7 +51,7 @@ public class Kelas {
         else
         {
             return false;
-        }
+        }*/
     }
     
     public void removeMahasiswa(int index){

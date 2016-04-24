@@ -39,6 +39,7 @@ public class MenuDosenKelasKelas extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         btnAddMhs = new javax.swing.JButton();
         btnRemoveMhs = new javax.swing.JButton();
+        btnRemoveTugas = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -72,6 +73,8 @@ public class MenuDosenKelasKelas extends javax.swing.JPanel {
 
         btnRemoveMhs.setText("Remove Mahasiswa");
 
+        btnRemoveTugas.setText("Remove Tugas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,29 +86,30 @@ public class MenuDosenKelasKelas extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(120, 120, 120)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(43, 43, 43)
-                                .addComponent(btnBack)
-                                .addGap(51, 51, 51))
-                            .addComponent(btnRemoveMhs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSetMatkul, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnViewTugas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCreateTgs, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnAddMhs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnBack))
+                            .addComponent(btnRemoveMhs, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                            .addComponent(btnSetMatkul, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                            .addComponent(btnViewTugas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCreateTgs, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                            .addComponent(btnAddMhs, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                            .addComponent(btnRemoveTugas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(131, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addComponent(btnSetMatkul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCreateTgs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRemoveTugas)
+                .addGap(8, 8, 8)
                 .addComponent(btnViewTugas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAddMhs)
@@ -135,6 +139,7 @@ public class MenuDosenKelasKelas extends javax.swing.JPanel {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreateTgs;
     private javax.swing.JButton btnRemoveMhs;
+    private javax.swing.JButton btnRemoveTugas;
     private javax.swing.JButton btnSetMatkul;
     private javax.swing.JButton btnViewTugas;
     private javax.swing.JButton jButton1;
@@ -165,6 +170,10 @@ public class MenuDosenKelasKelas extends javax.swing.JPanel {
         return btnViewTugas;
     }
 
+    public JButton getBtnRemoveTugas() {
+        return btnRemoveTugas;
+    }
+    
     public JLabel getjLabel1() {
         return jLabel1;
     }
@@ -184,6 +193,7 @@ public class MenuDosenKelasKelas extends javax.swing.JPanel {
         btnRemoveMhs.addActionListener(e);
         btnSetMatkul.addActionListener(e);
         btnViewTugas.addActionListener(e);
+        btnRemoveTugas.addActionListener(e);
     }
     
 }

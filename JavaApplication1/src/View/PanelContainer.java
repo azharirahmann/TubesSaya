@@ -10,6 +10,7 @@ package View;
  * @author user
  */
 import java.awt.CardLayout;
+import java.awt.Frame;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,6 +28,7 @@ public class PanelContainer extends javax.swing.JFrame {
         cardLayout = new CardLayout();
         mainPanel.setLayout(cardLayout);
         this.setLocationRelativeTo(null);
+        this.setTitle("E-Learning Application");
     }
     
     public JPanel getMainPanel() {

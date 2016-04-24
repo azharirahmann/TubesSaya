@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -182,6 +183,10 @@ public class AddMahasiswa extends javax.swing.JPanel {
     
     public String getTfNim(){
         return tfNim.getText();
+    }
+    
+    public void showMessage(String s){
+        JOptionPane.showMessageDialog(null, s);
     }
 
     public String getJenisKelamin(){

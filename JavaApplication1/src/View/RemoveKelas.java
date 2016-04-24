@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -20,7 +21,15 @@ public class RemoveKelas extends javax.swing.JPanel {
     public RemoveKelas() {
         initComponents();
     }
-
+    
+    public void showMessage(String s){
+        JOptionPane.showMessageDialog(null, s);
+    }
+    
+    public int showConfirmDialog(String m, String t){
+        return JOptionPane.showConfirmDialog(null, m, t, JOptionPane.YES_NO_OPTION);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

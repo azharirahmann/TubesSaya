@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +19,10 @@ public class CreateTugas extends javax.swing.JPanel {
      */
     public CreateTugas() {
         initComponents();
+    }
+    
+    public void showMessage(String s){
+        JOptionPane.showMessageDialog(null, s);
     }
 
     /**

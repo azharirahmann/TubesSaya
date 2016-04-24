@@ -36,6 +36,7 @@ public class ViewTugas extends javax.swing.JPanel {
 
         jLabel1.setText("View Tugas");
 
+        txTugas.setEditable(false);
         txTugas.setColumns(20);
         txTugas.setRows(5);
         jScrollPane1.setViewportView(txTugas);

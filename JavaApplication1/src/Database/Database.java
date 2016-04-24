@@ -285,4 +285,15 @@ public class Database {
             ex.printStackTrace();
         }
     }
+    
+    public void deleteTugas(Kelas k, Tugas t){
+        try{
+            String query = "Delete from tugas where judul ='"
+                    +t.getJudul()+"'";
+            st.executeUpdate(query);
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
 }
