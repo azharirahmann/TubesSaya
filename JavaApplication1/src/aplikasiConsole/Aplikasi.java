@@ -26,7 +26,8 @@ public class Aplikasi {
     private MataKuliah mk = null;
     private Kelas k = null;
     private Database db;
-
+    
+    
     public Aplikasi(){
         this.daftarDosen = new ArrayList<>();
         this.daftarMahasiswa = new ArrayList<>();
